@@ -12,6 +12,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+export const firebaseInstance = firebase;
+
 //모든 서비스를 로드하고 필요한 서비스만 상수로 export
 export const authService = firebase.auth();
 
