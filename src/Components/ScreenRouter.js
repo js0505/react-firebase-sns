@@ -11,7 +11,7 @@ const ScreenRouter = ({ isLoggedIn, userObject }) => {
 				{/* 같은 path에서 로그인 상태에 따라 보이는 화면을 다르게. */}
 				{isLoggedIn ? (
 					<>
-						<Route path="/">
+						<Route path="/" exact>
 							<Home userObject={userObject} />
 						</Route>
 						<Route path="/profile">
@@ -19,7 +19,7 @@ const ScreenRouter = ({ isLoggedIn, userObject }) => {
 						</Route>
 					</>
 				) : (
-					<Route path="/">
+					<Route path="/" exact>
 						<Auth />
 					</Route>
 				)}
