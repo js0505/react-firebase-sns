@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 
 //App.js에서 로그인 할 때 받은 useObject state
 const Home = ({ userObject }) => {
+	//form을 통해 새로 만드는 nweet의 state
 	const [nweet, setNweet] = useState("");
-	//배열로 새로운값, 이전값을 담기 위해서 기본값은 배열
+	//firestore에서 nweet을 받아오는 state
 	const [nweets, setNweets] = useState([]);
 
 	useEffect(() => {
