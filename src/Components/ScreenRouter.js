@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Auth, Profile, EditProfile } from "../Routes";
 import Navigation from "./Navigation";
 
-const ScreenRouter = ({ isLoggedIn }) => {
+const ScreenRouter = ({ isLoggedIn, userObject }) => {
 	return (
 		<Router>
 			{isLoggedIn && <Navigation />}
@@ -12,7 +12,7 @@ const ScreenRouter = ({ isLoggedIn }) => {
 				{isLoggedIn ? (
 					<>
 						<Route path="/">
-							<Home />
+							<Home userObject={userObject} />
 						</Route>
 						<Route path="/profile">
 							<Profile />
