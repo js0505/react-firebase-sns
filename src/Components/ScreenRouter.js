@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Home, Auth, Profile, EditProfile } from '../Routes'
 
 
-const ScreenRouter = () => {
-
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+const ScreenRouter = ({isLoggedIn}) => {
 
     return (
         <Router>
