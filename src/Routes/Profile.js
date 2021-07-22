@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 
 const Profile = () => {
 	const history = useHistory();
+
+	//로그아웃 구현. 이렇게 쉽다니
 	const onLogOutClick = (e) => {
 		authService.signOut();
 		history.push("/");

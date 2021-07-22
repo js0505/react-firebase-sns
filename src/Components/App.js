@@ -3,7 +3,7 @@ import ScreenRouter from "Components/ScreenRouter";
 import { authService } from "../fbase";
 
 const App = () => {
-  //like Loading...
+	//like Loading...
 	const [init, setInit] = useState(false);
 	//firebase의 로그인 상태를 state 기본값으로 가진다.
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
