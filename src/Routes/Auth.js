@@ -5,6 +5,7 @@ const Auth = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [newAccount, setNewAccount] = useState(true);
+	const [error, setError] = useState("");
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
@@ -22,9 +23,12 @@ const Auth = () => {
 			}
 			console.log(data);
 		} catch (e) {
-			console.log(e);
+			setError(e.message);
 		}
 	};
+
+	//toggleAccount 함수는 newAccount state의 값을 반대로 지정한다.
+	const toggleAccount = () => setNewAccount((prev) => !prev);
 
 	return (
 		<div>
@@ -45,8 +49,16 @@ const Auth = () => {
 					onChange={(e) => setPassword(e.target.value)}
 					required
 				/>
-				<input type="submit" value={newAccount ? "Create Account" : "Log In"} />
+				<input
+					type="submit"
+					value={newAccount ? "Create Account" : "Sign In"}
+				/>
+				{error}
 			</form>
+			{/* 로그인 할지, 계정을 생성할지 바꾸는 버튼 */}
+			<span onClick={toggleAccount}>
+				{newAccount ? "Sign In" : "Create Account"}
+			</span>
 			<div>
 				<button>Continue With Google</button>
 				<button>Continue With Github</button>
