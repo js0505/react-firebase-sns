@@ -8,6 +8,8 @@ const Home = ({ userObject }) => {
 	const [nweet, setNweet] = useState("");
 	//firestore에서 nweet을 받아오는 state
 	const [nweets, setNweets] = useState([]);
+	//업로드한 사진파일의 url정보
+	const [attachment, setAttachment] = useState();
 
 	useEffect(() => {
 		//이전 방법보다 re-render되지 않아서 더 깔끔하고 빠르다.
@@ -43,14 +45,19 @@ const Home = ({ userObject }) => {
 		const theFile = files[0];
 		//FileReader API 불러오기
 		const reader = new FileReader();
-
+		// API의 파일로드가 끝나면 발생하는 이벤트
 		reader.onloadend = (finishedEvent) => {
-			//파일찾기 눌러서 가져온 파일의 url정보
-			console.log(finishedEvent.target.result);
+			//로드가 끝난 데이터 내부에 저장된 Url데이터를 state에 저장
+			const {
+				currentTarget: { result },
+			} = finishedEvent;
+			setAttachment(result);
 		};
-
+		//로드가 된 파일을 url로 읽음
 		reader.readAsDataURL(theFile);
 	};
+
+	const onClearAttachment = () => setAttachment(null);
 	return (
 		<div>
 			<form onSubmit={onSubmit}>
@@ -63,6 +70,12 @@ const Home = ({ userObject }) => {
 				/>
 				<input type="file" accept="image/*" onChange={onFileChange} />
 				<input type="submit" name="Nweet" />
+				{attachment && (
+					<div>
+						<img src={attachment} width="50px" />
+						<button onClick={onClearAttachment}>Clear</button>
+					</div>
+				)}
 			</form>
 			{nweets.map((nweet) => (
 				<Nweet
