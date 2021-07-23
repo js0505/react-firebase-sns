@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 const ScreenRouter = ({ isLoggedIn, userObject }) => {
 	return (
 		<Router>
-			{isLoggedIn && <Navigation />}
+			{isLoggedIn && <Navigation userObject={userObject} />}
 			<Switch>
 				{/* 같은 path에서 로그인 상태에 따라 보이는 화면을 다르게. */}
 				{isLoggedIn ? (
