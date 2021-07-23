@@ -42,7 +42,7 @@ const Home = ({ userObject }) => {
 		}
 
 		//저장되는 document의 형식
-		const nweetForm = {
+		const nweetObject = {
 			text: nweet,
 			createdAt: Date.now(),
 			creatorId: userObject.uid,
@@ -51,7 +51,7 @@ const Home = ({ userObject }) => {
 
 		//firestore에 nweets collection('nweets')에 document 추가
 		// id값은 자동 추가.
-		await dbService.collection("nweets").add(nweetForm);
+		await dbService.collection("nweets").add(nweetObject);
 		// form 초기화
 		setNweet("");
 		setAttachment("");

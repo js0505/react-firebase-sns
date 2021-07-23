@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 
 const Nweet = ({ nweetObject, isOwner }) => {
@@ -14,6 +14,8 @@ const Nweet = ({ nweetObject, isOwner }) => {
 			// delete nweet
 			// doc함수로 collection 내부의 id로 값을 찾아 삭제.
 			await dbService.doc(`nweets/${nweetObject.id}`).delete();
+			// document안에 같이 들어있는 url데이터로 조회해서 해당파일 삭제.
+			await storageService.refFromURL(nweetObject.attachmentUrl).delete();
 		}
 	};
 
