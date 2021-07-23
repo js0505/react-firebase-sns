@@ -10,7 +10,7 @@ const Home = ({ userObject }) => {
 	//firestore에서 nweet을 받아오는 state
 	const [nweets, setNweets] = useState([]);
 	//업로드한 사진파일의 url정보
-	const [attachment, setAttachment] = useState();
+	const [attachment, setAttachment] = useState("");
 
 	useEffect(() => {
 		//이전 방법보다 re-render되지 않아서 더 깔끔하고 빠르다.

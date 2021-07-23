@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Auth, Profile, EditProfile } from "../Routes";
+import { Home, Auth, Profile } from "../Routes";
 import Navigation from "./Navigation";
 
 const ScreenRouter = ({ isLoggedIn, userObject }) => {
@@ -15,7 +15,7 @@ const ScreenRouter = ({ isLoggedIn, userObject }) => {
 							<Home userObject={userObject} />
 						</Route>
 						<Route path="/profile">
-							<Profile />
+							<Profile userObject={userObject} />
 						</Route>
 					</>
 				) : (
