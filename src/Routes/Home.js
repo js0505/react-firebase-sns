@@ -1,6 +1,7 @@
-import Nweet from "Components/Nweet";
-import { dbService } from "fbase";
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import Nweet from "Components/Nweet";
+import { dbService, storageService } from "fbase";
 
 //App.js에서 로그인 할 때 받은 useObject state
 const Home = ({ userObject }) => {
@@ -25,14 +26,21 @@ const Home = ({ userObject }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		//firestore에 nweets collection('nweets')에 document 추가
-		// id값은 자동 추가.
-		await dbService.collection("nweets").add({
-			//저장되는 document의 형식
-			text: nweet,
-			createdAt: Date.now(),
-			creatorId: userObject.uid,
-		});
+		//user의 id로 폴더를 만들어 각 사용자별로 공간을 분리하고
+		//이름을 uuid를 사용해서 랜덤하게 만들어 저장.
+		const fileRef = storageService.ref().child(`${userObject.uid}/${uuidv4()}`);
+		//인코딩 할 data url, 인코딩 형식을 전송.
+		const response = await fileRef.putString(attachment, "data_url");
+		console.log(response);
+
+		// //firestore에 nweets collection('nweets')에 document 추가
+		// // id값은 자동 추가.
+		// await dbService.collection("nweets").add({
+		// 	//저장되는 document의 형식
+		// 	text: nweet,
+		// 	createdAt: Date.now(),
+		// 	creatorId: userObject.uid,
+		// });
 		// form 초기화
 		setNweet("");
 	};
