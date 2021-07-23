@@ -26,23 +26,35 @@ const Home = ({ userObject }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		//user의 id로 폴더를 만들어 각 사용자별로 공간을 분리하고
-		//이름을 uuid를 사용해서 랜덤하게 만들어 저장.
-		const fileRef = storageService.ref().child(`${userObject.uid}/${uuidv4()}`);
-		//인코딩 할 data url, 인코딩 형식을 전송.
-		const response = await fileRef.putString(attachment, "data_url");
-		console.log(response);
+		let attachmentUrl = "";
 
-		// //firestore에 nweets collection('nweets')에 document 추가
-		// // id값은 자동 추가.
-		// await dbService.collection("nweets").add({
-		// 	//저장되는 document의 형식
-		// 	text: nweet,
-		// 	createdAt: Date.now(),
-		// 	creatorId: userObject.uid,
-		// });
+		//업로드한 파일이 있을 경우 실행
+		if (attachment !== "") {
+			//user의 id로 폴더를 만들어 각 사용자별로 공간을 분리하고
+			//이름을 uuid를 사용해서 랜덤하게 만들어 저장.
+			const attachmentRef = storageService
+				.ref()
+				.child(`${userObject.uid}/${uuidv4()}`);
+			//인코딩 할 data url, 인코딩 형식을 전송.
+			const response = await attachmentRef.putString(attachment, "data_url");
+			//업로드 된 파일의 url 정보 받아옴.
+			attachmentUrl = await response.ref.getDownloadURL();
+		}
+
+		//저장되는 document의 형식
+		const nweetForm = {
+			text: nweet,
+			createdAt: Date.now(),
+			creatorId: userObject.uid,
+			attachmentUrl,
+		};
+
+		//firestore에 nweets collection('nweets')에 document 추가
+		// id값은 자동 추가.
+		await dbService.collection("nweets").add(nweetForm);
 		// form 초기화
 		setNweet("");
+		setAttachment("");
 	};
 
 	const onFileChange = (e) => {
