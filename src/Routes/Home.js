@@ -35,6 +35,22 @@ const Home = ({ userObject }) => {
 		setNweet("");
 	};
 
+	const onFileChange = (e) => {
+		const {
+			target: { files },
+		} = e;
+		//이벤트에 입력된 파일정보를 theFile에 담고
+		const theFile = files[0];
+		//FileReader API 불러오기
+		const reader = new FileReader();
+
+		reader.onloadend = (finishedEvent) => {
+			//파일찾기 눌러서 가져온 파일의 url정보
+			console.log(finishedEvent.target.result);
+		};
+
+		reader.readAsDataURL(theFile);
+	};
 	return (
 		<div>
 			<form onSubmit={onSubmit}>
@@ -45,6 +61,7 @@ const Home = ({ userObject }) => {
 					maxLength={120}
 					onChange={(e) => setNweet(e.target.value)}
 				/>
+				<input type="file" accept="image/*" onChange={onFileChange} />
 				<input type="submit" name="Nweet" />
 			</form>
 			{nweets.map((nweet) => (
